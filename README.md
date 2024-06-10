@@ -1,5 +1,5 @@
 # OncoGen
-Best-in-class Oncology dataset generator that mirrors reality as much as possible. Synthetic data is the next-best-thing if you wanted to experiment with AI and/or decentralized storage. 
+Oncogen is a powerful synthetic dataset generator for Oncology that mirrors reality as much as possible. If you wanted to experiment with AI, ML, DeSci and/or decentralized storage and wanted high-difelity datasets, this is for you. 
 
 # Dataset Overview
 Dataset covers three major types of cancer: lung, colorectal, and stomach cancers. It includes 4.9 million records, reflecting detailed patient demographics, treatments, medications, real-world outcomes, and comorbidities. This dataset is stored in both CSV and Parquet formats, making it suitable for various data processing and machine learning workflows.
