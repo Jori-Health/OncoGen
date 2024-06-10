@@ -1,5 +1,4 @@
-#OncoGen V0.01
-
+#run this code on a well-provisioned server/computer with ample memory. If you get a "segmentation fault" switch to the laptop version which chunkifies data generation
 import numpy as np
 import pandas as pd
 import pyarrow as pa
@@ -10,10 +9,13 @@ from faker import Faker
 fake = Faker()
 
 # Constants
-NUM_PATIENTS = 49000000
+NUM_PATIENTS = 4900000
 LUNG_CANCER_RATIO = 2.1 / (2.1 + 1.8 + 1.0)
 COLORECTAL_CANCER_RATIO = 1.8 / (2.1 + 1.8 + 1.0)
 STOMACH_CANCER_RATIO = 1.0 / (2.1 + 1.8 + 1.0)
+
+# Generate Patient IDs
+patient_ids = np.arange(1, NUM_PATIENTS + 1)
 
 # Generate Cancer Types
 cancer_types = np.random.choice(
@@ -32,7 +34,6 @@ countries = np.random.choice(['US', 'China', 'India', 'Japan', 'Germany', 'UK'],
 # Generate Comorbidities and Adjust Survival Rates
 comorbidities = []
 comorbidity_factors = []
-
 for i in range(NUM_PATIENTS):
     num_comorbidities = np.random.poisson(2)
     patient_comorbidities = fake.words(nb=num_comorbidities, ext_word_list=['hypertension', 'diabetes', 'COPD', 'cardiovascular disease', 'chronic kidney disease'])
@@ -85,32 +86,26 @@ for i in range(NUM_PATIENTS):
     treatments.append(treatment)
     medications.append(medication)
 
-# Create DataFrame in chunks to avoid memory issues
-chunk_size = 1000000  # Adjust based on memory capacity
-num_chunks = NUM_PATIENTS // chunk_size
+# Create DataFrame
+data = pd.DataFrame({
+    'patient_id': patient_ids,
+    'cancer_type': cancer_types,
+    'age': ages,
+    'gender': genders,
+    'smoking_status': smoking_status,
+    'country': countries,
+    'treatment': treatments,
+    'medication': medications,
+    'outcome': outcomes,
+    'comorbidities': comorbidities
+})
 
-for chunk in range(num_chunks):
-    start_idx = chunk * chunk_size
-    end_idx = start_idx + chunk_size
+# Save to CSV
+data.to_csv('synthetic_oncology_data.csv', index=False)
 
-    data_chunk = pd.DataFrame({
-        'patient_id': patient_ids[start_idx:end_idx],
-        'cancer_type': cancer_types[start_idx:end_idx],
-        'age': ages[start_idx:end_idx],
-        'gender': genders[start_idx:end_idx],
-        'smoking_status': smoking_status[start_idx:end_idx],
-        'country': countries[start_idx:end_idx],
-        'treatment': treatments[start_idx:end_idx],
-        'medication': medications[start_idx:end_idx],
-        'outcome': outcomes[start_idx:end_idx],
-        'comorbidities': comorbidities[start_idx:end_idx]
-    })
+# Save to Parquet
+table = pa.Table.from_pandas(data)
+pq.write_table(table, 'synthetic_oncology_data.parquet')
 
-    # Save chunk to CSV
-    data_chunk.to_csv(f'synthetic_oncology_data_chunk_{chunk}.csv', index=False)
+print("Synthetic oncology data generated and saved to 'synthetic_oncology_data.csv' and 'synthetic_oncology_data.parquet'.")
 
-    # Save chunk to Parquet
-    table = pa.Table.from_pandas(data_chunk)
-    pq.write_table(table, f'synthetic_oncology_data_chunk_{chunk}.parquet')
-
-print("Synthetic oncology data generated and saved in chunks.")
