@@ -3,7 +3,7 @@ Oncogen is a powerful synthetic dataset generator for Oncology that mirrors real
 
 
 # New - NGS data with gene mutations (Jan 2025) 
-To aid with precision medicine projects, OncoGen now generates synthetic data to simulate NGS. Some highlights about this new addition - 
+Grab code from v2-ngs folder! To aid with precision medicine projects, OncoGen now generates synthetic data to simulate NGS. Some highlights about this new addition - 
 **Data Format**
 Patient data is saved in .csv format with options for many other types. The NGS data, on the other hand, is stored in HGF5 format. This format is well-suited for large datasets and supports hierarchical data organization, which can be beneficial for storing different types of sequencing data. 
 
