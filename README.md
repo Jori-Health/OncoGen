@@ -1,15 +1,25 @@
 # OncoGen
 Oncogen is a powerful synthetic dataset generator for Oncology that mirrors reality as much as possible. If you wanted to experiment with AI, ML, DeSci and/or decentralized storage and wanted high-difelity datasets, this is for you. 
 
+
+# New - NGS data with gene mutations (Jan 2025) 
+To aid with precision medicine projects, OncoGen now generates synthetic data to simulate NGS. Some highlights about this new addition - 
+**Data Format**
+Patient data is saved in .csv format with options for many other types. The NGS data, on the other hand, is stored in HGF5 format. This format is well-suited for large datasets and supports hierarchical data organization, which can be beneficial for storing different types of sequencing data. 
+
+**Gene Mutations**
+In addition to capturing whole gene sequences, code also tracks mutations of prominent genes recorded in patient data. These include - BRCA1, BRCA2, TP53, EGFR, KRAS, ALK, PIK3CA, PTEN, RB1, and NRAS
+
 # Dataset Overview
-Dataset covers three major types of cancer: lung, colorectal, and stomach cancers. It includes 4.9 million records, reflecting detailed patient demographics, treatments, medications, real-world outcomes, and comorbidities. This dataset is stored in both CSV and Parquet formats, making it suitable for various data processing and machine learning workflows.
+Dataset covers four major types of cancer: lung, breast, colorectal, and stomach cancers. It includes 4.9 million records, reflecting detailed patient demographics, treatments, medications, real-world outcomes, and comorbidities. This dataset is stored in both CSV and Parquet formats, making it suitable for various data processing and machine learning workflows.
 
 **Cancer Types and Distribution**
-The dataset is designed with the following proportions, based on global incidence rates:
+The dataset is designed with the following proportions, based on global incidence rates. Numbers are shown for a sample of 5 million patients:
 
-Lung cancer: 2.1 million records (approx. 42.86%)
-Colorectal cancer: 1.8 million records (approx. 36.73%)
-Stomach cancer: 1.0 million records (approx. 20.41%)
+Lung cancer: 1.25 million records (approx. 25%)
+Breast cancer:  1.5 million (approx. 30%)
+Colorectal cancer: 750k records (approx. 15%)
+Stomach cancer: 1.5 million records (approx. 30%)
 
 **Ground Truths Reflected in the Data**
 Understanding the ground truths embedded in this dataset is crucial for accurate interpretation and validation of AI models.
